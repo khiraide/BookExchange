@@ -121,7 +121,7 @@ private FakeApplication application;
     result = callAction(controllers.routes.ref.Student.details(studentId));
     assertTrue("Student detail", contentAsString(result).contains(studentId));
     
-    // Test GET /student/BadStudentId and make sure we get a 404
+    // Test GET /student/BadStudentId and make sure we get a 404.
     result = callAction(controllers.routes.ref.Student.details("BadStudentId"));
     assertEquals("Student detail (bad)", NOT_FOUND, status(result));
     
