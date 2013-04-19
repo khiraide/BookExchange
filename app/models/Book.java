@@ -42,7 +42,8 @@ public class Book extends Model {
   }
   
   public String toString() {
-    return String.format("[Book %s %s %s %s]", this.bookId, this.name, this.edition, this.ISBN);
+    return String.format("[Book %s %s %s %s %s]", this.bookId, this.name, this.edition, 
+        this.ISBN, this.price);
   }
 
   public long getPrimaryKey() {

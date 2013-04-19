@@ -118,10 +118,12 @@ private FakeApplication application;
     // Test POST /students (with simulated, invalid form data).
     studentData = new HashMap<String, String>();
     studentData.put("studentId", "Student-03");
-    studentData.put("name", "ChuckNorris");
+    studentData.put("name", "ChuckNorris"); // Look at controllers.Student.newStudent for this validation.
     studentData.put("emailAddress", "e@example.com");
     request = fakeRequest();
+    request.withFormUrlEncodedBody(studentData);
     result = callAction(controllers.routes.ref.Student.newStudent(), request);
+    // Can't have a student named "ChuckNorris".
     assertEquals("Create a bad student fails", BAD_REQUEST, status(result));
     
     // Test DELETE /students/Student-01 (a valid StudentId)
@@ -178,7 +180,8 @@ private FakeApplication application;
     result = callAction(controllers.routes.ref.Offer.newOffer(), request);
     assertEquals("Create a new offer", OK, status(result));
     assertTrue("The second student added should be named: keone", Student.find().findList().get(1).getName().equals("keone"));
-    assertTrue("There should  be 2 books", Book.find().findList().size() == 2);
+    assertTrue("There should  be 2 students", Student.find().findList().size() == 2);
+    assertTrue("targetPrice should be 20.0", Offer.find().findList().get(1).getTargetPrice() == 20.0);
     // Test POST /offers (with simulated, invalid form data).
     request = fakeRequest();
     result = callAction(controllers.routes.ref.Offer.newOffer(), request);
@@ -227,7 +230,7 @@ private FakeApplication application;
     requestData.put("book.ISBN", "342526");
     requestData.put("book.price", "808");
     requestData.put("student.studentId", "studentId2");
-    requestData.put("student.name", "keone2"); 
+    requestData.put("student.name", "keone"); 
     requestData.put("student.emailAddress", "example.com");
     requestData.put("condition", "good");
     requestData.put("targetPrice", "90.0");

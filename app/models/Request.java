@@ -44,7 +44,8 @@ public class Request extends Model {
   }
   
   public String toString() {
-    return String.format("[Request %s]", this.requestId);
+    return String.format("[Request %s %s %s %s %s]", this.requestId, this.book.getBookId(), 
+        this.student.getStudentId(), this.condition, this.targetPrice);
   }
 
   public long getPrimaryKey() {

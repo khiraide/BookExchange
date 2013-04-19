@@ -44,7 +44,8 @@ public class Offer extends Model {
   }
   
   public String toString() {
-    return String.format("[Offer %s]", this.offerId);
+    return String.format("[Offer %s %s %s %s %s]", this.offerId, this.book.getBookId(), 
+        this.student.getStudentId(), this.condition, this.targetPrice);
   }
 
   public long getPrimaryKey() {

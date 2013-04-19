@@ -21,6 +21,9 @@ public class Offer extends Controller {
     // Create a offer form and bind the request variables to it.
     Form<models.Offer> offerForm = form(models.Offer.class).bindFromRequest();
     // Validate the form values.
+    //if(Double.parseDouble(offerForm.field("targetPrice").value()) <= 0) {
+     // offerForm.reject("targetPrice", "Your target price has to be greater than 0");
+    //}
     if (offerForm.hasErrors()) {
       return badRequest("Id, book info, student info, " +
           "required book condition, and target price are required.");
