@@ -23,7 +23,7 @@ public class Student extends Controller {
     // Validate the form values.
     if("ChuckNorris".equals(studentForm.field("name").value())) {
       studentForm.reject("name", "You can't be ChuckNorris...");
-  }
+    }
     if (studentForm.hasErrors()) {
       return badRequest("Student ID, name, and e-mail is required.");
     }

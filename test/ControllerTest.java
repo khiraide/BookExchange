@@ -177,7 +177,8 @@ private FakeApplication application;
     request.withFormUrlEncodedBody(offerData);
     result = callAction(controllers.routes.ref.Offer.newOffer(), request);
     assertEquals("Create a new offer", OK, status(result));
-    assertTrue("Student should still exist", Student.find().findList().get(1).getName().equals("keone"));
+    assertTrue("The second student added should be named: keone", Student.find().findList().get(1).getName().equals("keone"));
+    assertTrue("There should  be 2 books", Book.find().findList().size() == 2);
     // Test POST /offers (with simulated, invalid form data).
     request = fakeRequest();
     result = callAction(controllers.routes.ref.Offer.newOffer(), request);
