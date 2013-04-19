@@ -116,6 +116,10 @@ private FakeApplication application;
     assertEquals("Create a new student", OK, status(result));
     
     // Test POST /students (with simulated, invalid form data).
+    studentData = new HashMap<String, String>();
+    studentData.put("studentId", "Student-03");
+    studentData.put("name", "ChuckNorris");
+    studentData.put("emailAddress", "e@example.com");
     request = fakeRequest();
     result = callAction(controllers.routes.ref.Student.newStudent(), request);
     assertEquals("Create a bad student fails", BAD_REQUEST, status(result));
