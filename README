@@ -1,4 +1,4 @@
-This is your new Play 2.1 application
+Play 2.1 book exchange web application.
 =====================================
 
-This file will be packaged with your application, when using `play dist`.
+This web application is a book exchange application meant for students. It allows them to buy and sell textbooks with each other. They can offer and a request a textbook at a specific price indicating the book’s condition. E.g. “Bad condition”, “Mint Condition”, etc. This web application is meant to be used locally where its expected that students probably know each other in person, unlike a site like craigslist.
