@@ -187,7 +187,7 @@ private FakeApplication application;
     result = callAction(controllers.routes.ref.Offer.delete(offerId));
     assertEquals("Delete missing offer also OK", OK, status(result));
   }
-  /*
+
   @Test
   public void testRequestController() {
     // Test GET /book on an empty database.
@@ -197,8 +197,10 @@ private FakeApplication application;
     // Test GET /request on a database containing a single request.
     String studentId = "Student-06";
     Student student = new Student(studentId, "name", "emailAddress");
+    String bookId = "Book-01";
+    Book book = new Book(bookId, "name", "edition", "ISBN", 808);
     String requestId = "Request-01";
-    Request request = new Request(requestId, student, "condition", 808.0);
+    Request request = new Request(requestId, book, student, "condition", 808.0);
     request.save();
     result = callAction(controllers.routes.ref.Request.index());
     assertTrue("One request", contentAsString(result).contains(requestId));
@@ -214,7 +216,16 @@ private FakeApplication application;
     // Test POST /requests (with simulated, valid form data).
     Map<String, String> requestData = new HashMap<String, String>();
     requestData.put("requestId", "Request-02");
+    requestData.put("book.bookId", "bookId");
+    requestData.put("book.name", "bookName");
+    requestData.put("book.edition", "1");
+    requestData.put("book.ISBN", "342526");
+    requestData.put("book.price", "808");
+    requestData.put("student.studentId", "studentId2");
+    requestData.put("student.name", "keone2"); 
+    requestData.put("student.emailAddress", "example.com");
     requestData.put("condition", "good");
+    requestData.put("targetPrice", "90.0");
     FakeRequest fakeRequest = fakeRequest();
     fakeRequest.withFormUrlEncodedBody(requestData);
     result = callAction(controllers.routes.ref.Request.newRequest(), fakeRequest);
@@ -233,5 +244,5 @@ private FakeApplication application;
     result = callAction(controllers.routes.ref.Request.delete(requestId));
     assertEquals("Delete missing request also OK", OK, status(result));
   }
-  */
+ 
 }
