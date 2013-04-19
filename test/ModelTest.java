@@ -13,6 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import play.test.FakeApplication;
+//import views.html.play20.book;
 
 
 public class ModelTest {
@@ -32,24 +33,29 @@ private FakeApplication application;
   @Test
   public void testModel() {
     // Create 1 student that's associated with a request;
-    Student student = new Student("Keone", "keone@example.com");
-    Book book1 = new Book("Book1Title", "edition", "ISBN", 10.00);
-    Request request = new Request(student, book1, "new", 5.00);
-    student.requests.add(request);
+    Student student = new Student("studentId","Keone", "keone@example.com");
+    student.save();
+    Book book1 = new Book("book1Id","Book1Title", "edition", "ISBN", 10.00);
+    book1.save();
+    Request request = new Request("requestId", book1, student, "good", 5.00);
+    request.save();
+    student.getRequests().add(request);
+    student.save();
+    book1.getRequests().add(request);
+    book1.save();
     
     // Same student is associated with an offer.
-    Book book2 = new Book("Book2Title", "edition", "ISBN", 7.00);
-    Offer offer = new Offer(student, book2, "worn", 2.00);
-    student.offers.add(offer);
+    Book book2 = new Book("book2Id","Book2Title", "edition", "ISBN", 7.00);
+    book2.save();
+    Offer offer = new Offer("offerId", book2, student, "good", 2.00);
+    offer.save();
+    student.getOffers().add(offer);
+    student.save();
+    book2.getOffers().add(offer);
+    book2.save();
     
     // Persist the sample model by saving all entities and relationships.
    
-    student.save();
-    book1.save();
-    request.save();
-    book2.save();
-    offer.save();
-    
     // Retreive the entire model from the database.
     List<Student> students = Student.find().findList();
     List<Book> books = Book.find().findList();
@@ -63,19 +69,28 @@ private FakeApplication application;
     assertEquals("Checking student", students.size(), 1);
     
     // Check that we've recovered all relationships.
-    assertEquals("Student-Request", students.get(0).requests.get(0),requests.get(0));
-    assertEquals("Request-Student", requests.get(0).student, students.get(0));
-    assertEquals("Request-Book", requests.get(0).book, books.get(0));
-    assertEquals("Book-Request", books.get(0).request, requests.get(0));
-    assertEquals("Offer-Book", offers.get(0).book, books.get(1));
-    assertEquals("Book-Offer", books.get(1).offer, offers.get(0));
+    assertEquals("Student-Request", students.get(0).getRequests().get(0),requests.get(0));
+    assertEquals("Request-Student", requests.get(0).getStudent(), students.get(0));
+    assertEquals("Student-Offer", students.get(0).getOffers().get(0),offers.get(0));
+    assertEquals("Offer-Student", offers.get(0).getStudent(), students.get(0));
+    assertEquals("Request-Book", requests.get(0).getBook(), books.get(0));
+    assertEquals("Book-Request", books.get(0).getRequests().get(0), requests.get(0));
+    assertEquals("Offer-Book", offers.get(0).getBook(), books.get(1));
+    assertEquals("Book-Offer", books.get(1).getOffers().get(0), offers.get(0));
     
-    // Some code to illustrate model manipulation with ORM.
-    student.offers.clear();
-    student.save();
-    assertTrue("Previously retrieved student still has request", !students.get(0).offers.isEmpty());
-    offer.delete();
-    assertTrue("No more rofferss in database", Offer.find().findList().isEmpty());
+    // Some code to illustrate model manipulation with ORM
+   offer.delete();
+   assertTrue("Student should still exist", Student.find().findList().size() == 1);
+   assertTrue("Student should no longer have an offer", Student.find().findList().get(0).getOffers().isEmpty());
+   assertTrue("There shouldn't be any offers", Offer.find().findList().isEmpty());
+   assertTrue("Book count should be 1", Book.find().findList().size() == 1);
+   request.delete();
+   assertTrue("Student should still exist", Student.find().findList().size() == 1);
+   assertTrue("Student should no longer have a request", Student.find().findList().get(0).getRequests().isEmpty());
+   assertTrue("There shouldn't be any requests", Request.find().findList().isEmpty());
+   assertTrue("Book count should be 0", Book.find().findList().size() == 0);
+   student.delete();
+   assertTrue("Students shouldn't exist anymore", Student.find().findList().isEmpty());
     
   }
 }
