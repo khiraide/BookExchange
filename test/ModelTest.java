@@ -13,23 +13,35 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import play.test.FakeApplication;
-//import views.html.play20.book;
 
 
 public class ModelTest {
+  /**
+   * Fake application used to test our Model.
+   */
 private FakeApplication application;
   
+/**
+ * Before we begin model tests, we want to create a temporary database.
+ */
   @Before
   public void startApp() {
     application = fakeApplication(inMemoryDatabase());
     start(application);
   }
   
+  /**
+   * Stops and destroys the temporary database after the model tests are complete.
+   */
   @After
   public void stopApp() {
     stop(application);
   }
   
+  /**
+   * Tests our persists to the database and that the relationships between the various
+   * entities are correct.
+   */
   @Test
   public void testModel() {
     // Create 1 student that's associated with a request;

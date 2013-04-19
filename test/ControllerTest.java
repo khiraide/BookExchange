@@ -24,20 +24,36 @@ import play.mvc.Result;
 import play.test.FakeApplication;
 import play.test.FakeRequest;
 
-
+/**
+ * Class used to test the controllers.
+ * @author Keone Hiraide
+ */
 public class ControllerTest {
+  /**
+   * Fake application used to run our tests.
+   */
 private FakeApplication application;
+/**
+ * Before we begin model tests, we want to create a temporary database.
+ */
   @Before
   public void startApp() {
     application = fakeApplication(inMemoryDatabase());
     start(application);
   }
   
+  /**
+   * Stops and destroys the temporary database after the model tests are complete.
+   */
   @After
   public void stopApp() {
     stop(application);
   }
   
+  /**
+   * Tests that all of our controller Book functions work properly by sending 
+   * fake HTTP requests according to the configuration of the conf/routes file.
+   */
   @Test
   public void testBookController() {
     // Test GET /book on an empty database.
@@ -84,6 +100,10 @@ private FakeApplication application;
     assertEquals("Delete missing book also OK", OK, status(result));
   }
 
+  /**
+   * Tests that all of our controller Student functions work properly by sending 
+   * fake HTTP requests according to the configuration of the conf/routes file.
+   */
   @Test
   public void testStudentController() {
     // Test GET /book on an empty database.
@@ -135,6 +155,10 @@ private FakeApplication application;
     assertEquals("Delete missing student also OK", OK, status(result));
   }
  
+  /**
+   * Tests that all of our controller Offer functions work properly by sending 
+   * fake HTTP requests according to the configuration of the conf/routes file.
+   */
   @Test
   public void testOfferController() {
     // Test GET /book on an empty database.
@@ -196,6 +220,10 @@ private FakeApplication application;
     assertEquals("Delete missing offer also OK", OK, status(result));
   }
 
+  /**
+   * Tests that all of our controller Request functions work properly by sending 
+   * fake HTTP requests according to the configuration of the conf/routes file.
+   */
   @Test
   public void testRequestController() {
     // Test GET /book on an empty database.
