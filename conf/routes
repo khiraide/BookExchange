@@ -4,6 +4,7 @@
 
 # Home page
 GET     /                        controllers.Application.index()
+#GET     /listing                 controllers.Application.listing()
 
 GET     /books                   controllers.Book.index()
 GET     /books/:bookId           controllers.Book.details(bookId: String)
@@ -17,7 +18,7 @@ DELETE  /offers/:offerId         controllers.Offer.delete(offerId: String)
 
 GET     /requests                controllers.Request.index()
 GET     /requests/:requestId     controllers.Request.details(requestId: String)
-POST    /requests                controllers.Request.newRequest()
+POST    /requests                controllers.Request.create()
 DELETE  /requests/:requestId     controllers.Request.delete(requestId: String)
 
 GET     /students                controllers.Student.index()
@@ -27,3 +28,4 @@ DELETE  /students/:studentId     controllers.Student.delete(studentId: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file            controllers.Assets.at(path="/public", file)
+GET     /webjars/*file           controllers.WebJarAssets.at(file)

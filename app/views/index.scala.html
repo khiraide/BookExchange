@@ -1,7 +1,56 @@
 @(message: String)
-
-@main("Welcome to Play 2.1") {
-    
-    @play20.welcome(message, style = "Java")
-    
-}
+@main("BookExchange: Home") {
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <div class="navbar-content">
+            <ul class="nav  pull-left">
+              <li class="active">
+                <a href="@routes.Application.index()">Home</a> 
+              </li>
+              <li class="unactive">
+                <a href="@routes.Request.create()">Listing</a> 
+              </li>
+              <li class="unactive">
+                <a href="#">Submit Form</a> 
+              </li>
+              <li class="unactive">
+                <a href="#">Login</a> 
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="page-header">
+        <h1>The Book Exchange Application
+          <br> 
+        </h1>
+      </div>
+      <p class="lead">Trade textbooks locally at the University of Hawaii at Manoa
+        <br> 
+      </p>
+      <div class="row">
+        <div class="span6">
+          <div class="well">
+            <h4>Listing</h4>
+            <p>View the book requests and offers that students have submitted.
+              <br> 
+            </p>
+          </div>
+        </div>
+        <div class="span6">
+          <div class="well">
+            <h4>Submit Form
+              <br> 
+            </h4>
+            <p>Want to request or offer a book? Click here!
+              <br> 
+            </p>
+          </div>
+        </div>
+      </div>
+      <a href="http://www.google.com">Not yet a member? Register here!</a> 
+    </div>
+ }

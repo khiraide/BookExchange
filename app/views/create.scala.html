@@ -1,0 +1,177 @@
+@(requestForm: Form[models.Request])
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main("BookExchange: Listing") {
+   <body style="padding-top: 50px">
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <div class="navbar-content">
+            <ul class="nav  pull-left">
+              <li class="disabled">
+                <a href="@routes.Application.index()">Home</a> 
+              </li>
+              <li class="active">
+                <a href="#">Listing</a> 
+              </li>
+              <li class="unactive">
+                <a href="#">Submit Form</a> 
+              </li>
+              <li class="unactive">
+                <a href="#">Login</a> 
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="page-header">
+        <h1>Listing
+          <br> 
+        </h1>
+      </div>
+      <p class="lead">Book requests and offers currently available.
+        <br> 
+      </p>
+      <div class="row-fluid">
+        <div class="well">
+          <div class="span3">
+            <select class="input-mini">
+              <option>10</option>
+              <option>25</option>
+              <option>50</option>
+              <option>100</option>&nbsp;</select>Records per page</div>
+          <div class="span9">
+            <form class="navbar-search pull-right">
+              <input class="search-query" placeholder="Book Title, Student, Condition..."
+              type="text">
+              <a class="btn btn-primary">Search</a>
+              <a class="btn btn-link btn-small">Advanced Search</a> 
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="pull-left span12">
+          <table class="table table-hover table-bordered table-condensed">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Student</th>
+                <th>Book Title</th>
+                <th>Edition</th>
+                <th>ISBN</th>
+                <th>Condition</th>
+                <th>Price</th>
+                <th>R/O</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td>Economics Book</td>
+                <td>First</td>
+                <td>1234567890</td>
+                <td>Mint</td>
+                <td>$5.00</td>
+                <td>Request</td>
+                <td>
+                  <button type="submit" class="btn btn-primary btn-mini">Reply</button>
+                </td>
+                <td>
+                  <button type="submit" class="btn btn-danger btn-mini">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Jane Doe</td>
+                <td>Planting</td>
+                <td>Second</td>
+                <td>0987654321</td>
+                <td>Worn</td>
+                <td>$10.00</td>
+                <td>Offer</td>
+                <td>
+                  <button type="submit" class="btn btn-primary btn-mini">Reply</button>
+                </td>
+                <td>
+                  <button type="submit" class="btn btn-danger btn-mini">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <br> 
+                </td>
+                <td>
+                  <br> 
+                </td>
+                 @form(routes.Request.create(), 'class -> "form-horizontal") {
+                 @inputText(requestForm("requestId"), '_label -> "ID")
+                 @inputText(requestForm("Book.name"), '_label -> "Book title", 'placeholder -> "da Book")
+                 @inputText(requestForm("Book.edition"), '_label -> "Edition", 'placeholder -> "first")
+                 @inputText(requestForm("Book.ISBN"), '_label -> "ISBN", 'placeholder -> "123456")
+                 @inputText(requestForm("Book.price"), '_label -> "Price", 'placeholder -> "6.00")
+                 @inputText(requestForm("condition"), '_label -> "Condition", 'placeholder -> "bad")
+                 }
+                <td>
+                  <div class="input-prepend input-append">
+                    <span class="add-on">$</span>
+                    <input class="input-mini" <="" div="" type="text"> 
+                  </div>
+                </td>
+                <td>
+                  <select class="input-small">
+                    <option>Request</option>
+                    <option>Offer</option>
+                  </select>
+                </td>
+                <td>
+                  <button type="submit" class="btn btn-info btn-mini">Submit</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="well">
+          <div class="pull-left span2">Showing 0-10 of 2 entries</div>
+          <div class="pull-left span4">
+            <span class="help-inline">View: </span>
+            <select>
+              <option>Requests and Offers</option>
+              <option>Offers</option>
+              <option>Requests</option>
+            </select>
+          </div>
+          <div class="span6">
+            <div class="pagination pull-right">
+              <ul>
+                <li>
+                  <a href="#">Prev</a> 
+                </li>
+                <li>
+                  <a href="#">1</a> 
+                </li>
+                <li>
+                  <a href="#">2</a> 
+                </li>
+                <li>
+                  <a href="#">3</a> 
+                </li>
+                <li>
+                  <a href="#">4</a> 
+                </li>
+                <li>
+                  <a href="#">Next</a> 
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+}

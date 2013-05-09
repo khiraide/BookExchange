@@ -5,6 +5,7 @@ import java.util.List;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.listing;
 /**
  * Controller for our Request model.
  * @author Keone Hiraide
@@ -46,6 +47,17 @@ public class Request extends Controller {
     models.Request request = requestForm.get();
     request.save();
     return ok(request.toString());
+  }
+  
+  public static Result create() {
+    Form<models.Request> requestForm = form(models.Request.class).bindFromRequest();
+    if (requestForm.hasErrors()) {
+      System.out.println("Bad request: " + requestForm.errors());
+      return badRequest(listing.render(requestForm));
+    }
+    models.Request request = requestForm.get();
+    request.save();
+    return redirect(routes.Application.index());
   }
   
   /**
